@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home Page</title>
+        <style>
+            body{
+                margin-top: 10%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-image: url("static/who-4984801_1280.jpg");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+            .box{
+                width: auto;
+                height: auto;
+                min-width: 400px;
+                min-height: 300px;
+                max-width: 800px;
+                max-height: 800px;
+                text-align: center;
+            }
+            .box a{
+                color: #000000;
+                font-size: 38px;
+                font-weight: bold;
+                margin-bottom: 5%;
+                display: block;
+                transition: all 0.3s ease-in-out;
+                background: #ffffff8f;
+                border-radius: 20px;
+                padding-left: 15px;
+                padding-right: 15px;
+                padding-top: 10%;
+                height: 113px;
+            }
+            .box a:hover{
+                color: #000000;
+                text-shadow: -4px 0px 1px rgb(255 255 255);
+                font-size: 40px;
+            }
+            .option1{
+                display: flex;
+                justify-content: center;
+            }
+            .option2{
+                display: flex;
+                justify-content: center;
+            }
+            button{
+                width: 400px;
+                height: 60px;
+                margin-top: 30px;
+                border-radius: 10px;
+                border-width: thick;
+                border-block-color: white;
+                color: black;
+                background: #ffd751a6;
+                transition: all 0.3s ease-in-out;
+                font-size: 22px;
+                font-weight: bold
+            }
+            button:hover{
+                height: 60px;
+                width: 380px;
+                border-radius: 23px;
+                border-width: 10px;
+                font-size: 17px;
+                font-weight: bold;
+                border-block-end-color: aqua;
+                border-block-start-color: #bdbdbd;
+                background: #fffab2;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box">
+            <a>Wellcome to the Health Check WebPage</a>
+            <div class="option1">
+                <form action="{% url 'getInfo' %}" method="POST">
+                    {% csrf_token %}
+                    <button>Read about Different Health issues</button>
+                </form>
+            </div>
+            <div class="option2">
+                <form action="{% url 'healthCheck' %}" method="POST">
+                    {% csrf_token %}
+                    <button>Check your Health Condition</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

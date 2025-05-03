@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Health diagnosis</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh; 
+    background-image: url("/static/new-life-emerges-with-seedling-growth-roots-generative-ai.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color:white;
+    font-family: "Playwrite CU", serif;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    padding-top:1%
+}
+
+.box{
+    margin: 100px;
+    width: 80%;
+    border-radius: 30px;
+    padding-bottom: 30px;
+    min-width: 500px;
+}
+
+.topic{
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-family: "Pacifico", serif;
+    font-size: 25px;
+    margin-right: 6%;
+}
+
+.inputBox{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.inputBox button{
+    font-family: 'Playwrite CU';
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 40px;
+    width: 80px;
+    background: #00000038;
+    color: white;
+    border-color: black;
+    margin-bottom: 20px;
+    transition: background-color 0.5s ease-in-out;
+}
+
+button:hover{
+    background-color: white;
+    color:black
+}
+
+.dropDownBox{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#inputSelection{
+    padding-left:20px;
+    color:white;
+    width: 100%;
+    height: 40px;
+    max-width: 600px;
+    margin-right: 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    font-size: 25px;
+    background: #ffffff38;
+    border-color: rgb(0, 0, 0);
+    border-radius: 35px;
+    transition: background-color 0.5s ease-in-out;
+    font-family: 'Pacifico';
+}
+
+#inputSelection::placeholder {
+    color: white;
+}
+
+#inputSelection:hover{
+    background: white;
+    color: black;
+}
+
+#inputSelection:hover::placeholder {
+    color: black; 
+}
+
+#allOptions{
+    display: none;
+    border-radius: 10px;
+    border-width: 3px;
+    border-color: white;
+    width:300px;
+    margin-right: 80px;
+    max-height: 130px;
+    overflow: auto;
+}
+
+#allOptions div{
+    font-weight: bold;
+    margin:5px;
+    border-radius: 10px;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:30px;
+    width: 96%;
+    cursor: pointer;
+    background: #000000bd;
+    color: white;
+}
+
+#allOptions div:hover{
+    background-color: white;
+    color: black;
+}
+
+.d1{
+    display: flex;
+    justify-content: center;
+}
+
+.details{
+    margin-right: 65px;
+    padding-bottom: 20px;
+    max-height: 491px;
+    margin-left: 0%;
+    overflow: auto;
+    padding: 10px;
+    width: 100%;
+    max-width: 550px;
+    min-width: 300px;
+}
+
+.details label{
+    font-family: cursive;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
+
+select{
+    color: white;
+    width: 91%;
+    height: 31px;
+    min-width: 100px;
+    max-width: 500px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    background: #ffffff61;
+    border-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    box-shadow: -5px 5px 5px white;
+    
+}
+
+.details input{
+    color: white;
+    width: 90%;
+    height: 25px;
+    min-width: 100px;
+    max-width: 500px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    background: #ffffff61;
+    border-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    box-shadow: -5px 5px 5px white;
+}
+
+.details input:hover{
+    background-color: white;
+    color: black;
+}
+
+select:hover,
+select:focus {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+.hidden{
+    display: none;
+    font-family: "Playwrite CU", serif;
+}
+
+#submitInfo{
+    margin-left: 35%;
+    color: white;
+    font-size: 17px;
+    font-family: cursive;
+    font-weight: bold;
+    border-radius: 20px;
+    width: 95px;
+    height: 40px;
+    border-color: white;
+    background-color: transparent;
+    transition: background-color 0.5s ease-in-out;
+}
+
+#submitInfo:hover{
+    color: rgb(0, 0, 0);
+    background-color: white;
+}
+
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;  /* Light gray */
+    border-radius: 9px;
+}
+
+/* Scrollbar handle (the draggable part) */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Dark gray */
+    border-radius: 5px;
+}
+
+/* Scrollbar handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Even darker */
+}
+
+</style>
+
+<script>
+
+const options = ["Diabetes","Heart","Parkinson","Hypothyroid","Lung Cancer"];
+function display(){
+    let dropDown = document.getElementById("allOptions");
+    dropDown.innerHTML=""
+    options.forEach(function (option){
+        let div = document.createElement("div")
+        div.textContent=option;
+        div.onclick = function(){
+            document.getElementById("inputSelection").value = option;
+            dropDown.style.display="none";
+        }
+        dropDown.appendChild(div);
+    })
+    dropDown.style.display="block";
+}
+
+function filterOption(){
+    let input = document.getElementById("inputSelection").value.toLowerCase();
+    let dropDown = document.getElementById("allOptions");
+    dropDown.innerHTML=""
+    let filterOp = options.filter(option => option.toLocaleLowerCase().includes(input))
+    console.log(filterOp);
+    filterOp.forEach(function (option){
+        let div = document.createElement("div")
+        div.textContent=option;
+        div.onclick = function(){
+            document.getElementById("inputSelection").value = option;
+            dropDown.style.display="none";
+        }
+        dropDown.appendChild(div);
+    })
+    dropdown.style.display = filteredOptions.length > 0 ? "block" : "none";
+}
+
+function show(){
+    let disease = document.getElementById("inputSelection").value.toLocaleLowerCase();
+    let diabetesInputs = document.getElementById("diabetesInputs");
+    let heartInputs = document.getElementById("heartInputs");
+    let hypothyroidInputs = document.getElementById("hypothyroidInputs");
+    let parkinsonInputs = document.getElementById("parkinsonInputs");
+    let lungCancerInputs = document.getElementById("lungCancerInputs");
+    let submitButton = document.getElementById("submitInfo");
+
+        // Hide all inputs first
+    diabetesInputs.classList.add("hidden");
+    heartInputs.classList.add("hidden");
+    hypothyroidInputs.classList.add("hidden");
+    parkinsonInputs.classList.add("hidden");
+    lungCancerInputs.classList.add("hidden");
+    submitButton.classList.add("hidden");
+
+        // Show only the selected disease inputs
+    if (disease === "diabetes") diabetesInputs.classList.remove("hidden");
+    if (disease === "heart") heartInputs.classList.remove("hidden");
+    if (disease === "hypothyroid") hypothyroidInputs.classList.remove("hidden");
+    if (disease === "parkinson") parkinsonInputs.classList.remove("hidden");
+    if (disease === "lung cancer") lungCancerInputs.classList.remove("hidden");
+    submitButton.classList.remove("hidden");
+    }
+
+    document.addEventListener("click", function (event) {
+        let dropdown = document.getElementById("allOptions");
+        let inputBox = document.getElementById("inputSelection");
+        if (!inputBox.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = "none";
+        }
+    });	
+
+    document.addEventListener("click", function (event) {
+        let detailsBox = document.querySelector(".box");
+        if (!detailsBox.contains(event.target)) {
+            disease = document.getElementById("inputSelection").value.toLocaleLowerCase();
+            let diabetesInputs = document.getElementById("diabetesInputs");
+            let heartInputs = document.getElementById("heartInputs");
+            let hypothyroidInputs = document.getElementById("hypothyroidInputs");
+            let parkinsonInputs = document.getElementById("parkinsonInputs");
+            let lungCancerInputs = document.getElementById("lungCancerInputs");
+            let submitButton = document.getElementById("submitInfo");
+
+            diabetesInputs.classList.add("hidden");
+            heartInputs.classList.add("hidden");
+            hypothyroidInputs.classList.add("hidden");
+            parkinsonInputs.classList.add("hidden");
+            lungCancerInputs.classList.add("hidden");
+            submitButton.classList.add("hidden");
+        }
+    });
+
+</script>
+
+    </head>
+    <body>
+        <div class="container">
+        <div class="box">
+            <div class="topic">
+                <h1>Health Diagnosis...</h1>
+            </div>
+            <div class="inputBox" id="iNB">
+                <input type="text" id="inputSelection" placeholder="Select Disease.." onfocus="display()" oninput="filterOption()">
+                <button id="submit" onclick="show()">Select</button>
+            </div>
+            <div class="dropDownBox" id="dDB">
+                <div id="allOptions">
+                    
+                </div>
+            </div>
+            <div class="d1">
+                <div class="details" id="d2">
+                    <!-- Diabetes Inputs -->
+                    <div id="diabetesInputs" class="hidden">
+                        <form method="POST" action="{% url 'process_data_diabetes' %}">
+                            {% csrf_token %}                       
+                            <label for="Sex">Sex:</label><br>
+                            <select name="Sex" id="Sex" required>
+                                <option value="">Select</option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                            </select><br>                    
+                            <label>Age: <br><input name="Age" type="number" step="any" required></label><br>
+                            <label>Hypertension: <br><input name="Hypertension" type="number" step="any" required></label><br>
+                            <label>Heart Disease: <br><input name="HeartDisease" type="number" step="any" required></label><br>
+                            <label for="Smoking">Smoking History:</label><br>
+                            <select name="Smoking" id="Smoking" required>
+                                <option value="">Select</option>
+                                <option value="NoInfo">No Info</option>
+                                <option value="never">Never</option>
+                                <option value="current">Current</option>
+                                <option value="ever">Ever</option>
+                                <option value="former">Former</option>
+                                <option value="not_current">Not Current</option>
+                            </select><br>
+                            <label>BMI: <br><input name="BMI" type="number" step="any" required></label><br>
+                            <label>HbA1c Level: <br><input name="HbA1c" type="number" step="any" required></label><br>
+                            <label>Blood Glucose Level: <br><input name="BloodGlucose" type="number" step="any" required></label><br>                        
+                            <button id="submitInfo" type="submit">Submit</button>
+                        </form>                        
+                    </div>
+
+                    <!-- Heart Disease Inputs -->
+                    <div id="heartInputs" class="hidden">
+                        <form method="POST" action="{% url 'process_data_heart' %}">
+                            {% csrf_token %}
+                            <label>Age: <br><input type="number" name="Age" required step="any"></label><br>
+                            <label for="Sex">Sex:</label><br>
+                            <select name="Sex" id="Sex" required>
+                                <option value="">Select</option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                            </select><br>                       
+                            <label for="chest_pain_type">Chest Pain:</label><br>
+                            <select name="chest_pain_type" id="chest_pain_type" required>
+                                <option value="">Select</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select><br>
+                            <label>Resting BP: <br><input type="number" name="resting_bp" required step="any"></label><br>
+                            <label>Cholesterol: <br><input type="number" name="cholesterol" required step="any"></label><br>
+                            <label>Fasting Blood Sugar: <br><input type="number" name="fasting_blood_sugar" required step="any"></label><br>
+                            <label for="resting_ecg">Resting ECG:</label><br>
+                            <select name="resting_ecg" id="resting_ecg" required>
+                                <option value="">Select</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select><br>
+                            <label>Max Heart Rate: <br><input type="number" name="max_heart_rate" required step="any"></label><br>
+                            <label>Exercise Induced Angina: <br><input type="number" name="exercise_induced_angina" required step="any"></label><br>
+                            <label>Oldpeak: <br><input type="number" name="oldpeak" required step="any"></label><br>
+                            <label>Slope: <br><input type="number" name="slope" required step="any"></label><br>
+                            <label>CA: <br><input type="number" name="ca" required step="any"></label><br>
+                            <label for="thal">Thal:</label>  
+                            <select name="thal" id="thal" required>
+                                <option value="">Select</option>
+                                <option value="1">Normal</option>
+                                <option value="2">Fixed</option>
+                                <option value="3">Reversible</option>
+                            </select><br>                                            
+                            <button id="submitInfo">Submit</button>
+                        </form>                                               
+                    </div>
+                    
+                    <!-- Hypothyroid Inputs -->
+                    <div id="hypothyroidInputs" class="hidden">
+                        <form method="POST" action="{% url 'process_data_hypothyroid' %}">
+                            {% csrf_token %}
+                            <label>Age: <br><input type="number" name="Age" step="any" required></label><br>
+                            <label>Sex: <br>
+                                <select name="sex" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </label><br>
+                            <label>On Thyroxine: <br>
+                                <select name="on_thyroxine" required>
+                                    <option value="">Select</option>
+                                    <option value="1">True</option>
+                                    <option value="0">False</option>
+                                </select>
+                            </label><br>
+                            <label>T3: <br><input type="number" name="T3" step="any" required></label><br>
+                            <label>TT4: <br><input type="number" name="TT4" step="any" required></label><br>
+                            <label>T3 Measured: <br>
+                                <select name="T3_measured" required>
+                                    <option value="">Select</option>
+                                    <option value="1">True</option>
+                                    <option value="0">False</option>
+                                </select>
+                            </label><br>
+                            <label>TSH: <br><input type="number" name="tsh" step="any" required></label><br>
+                            <button id="submitInfo" type="submit">Submit</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Parkinson Inputs -->
+                    <div id="parkinsonInputs" class="hidden">
+                        <form method="POST" action="{% url 'process_data_parkinson' %}">
+                            {% csrf_token %}                       
+                            <label>MDVP:Fo(Hz): <br><input type="number" name="mdvp_fo_hz" step="any" required></label><br>
+                            <label>MDVP:Fhi(Hz): <br><input type="number" name="mdvp_fhi_hz" step="any" required></label><br>
+                            <label>MDVP:Flo(Hz): <br><input type="number" name="mdvp_flo_hz" step="any" required></label><br>
+                            <label>MDVP:Jitter(%): <br><input type="number" name="mdvp_jitter_percent" step="any" required></label><br>
+                            <label>MDVP:Jitter(Abs): <br><input type="number" name="mdvp_jitter_abs" step="any" required></label><br>
+                            <label>MDVP:RAP: <br><input type="number" name="mdvp_rap" step="any" required></label><br>
+                            <label>MDVP:PPQ: <br><input type="number" name="mdvp_ppq" step="any" required></label><br>
+                            <label>Jitter:DDP: <br><input type="number" name="jitter_ddp" step="any" required></label><br>
+                            <label>MDVP:Shimmer: <br><input type="number" name="mdvp_shimmer" step="any" required></label><br>
+                            <label>MDVP:Shimmer(dB): <br><input type="number" name="mdvp_shimmer_db" step="any" required></label><br>
+                            <label>Shimmer:APQ3: <br><input type="number" name="Shimmer_APQ3" step="any" required></label><br>
+                            <label>Shimmer:APQ5: <br><input type="number" name="Shimmer_APQ5" step="any" required></label><br>
+                            <label>MDVP:APQ: <br><input type="number" name="MDVP_APQ" step="any" required></label><br>
+                            <label>Shimmer:DDA: <br><input type="number" name="Shimmer_DDA" step="any" required></label><br>
+                            <label>NHR: <br><input type="number" name="nhr" step="any" required></label><br>
+                            <label>HNR: <br><input type="number" name="hnr" step="any" required></label><br>
+                            <label>RPDE: <br><input type="number" name="rpde" step="any" required></label><br>
+                            <label>DFA: <br><input type="number" name="dfa" step="any" required></label><br>
+                            <label>Spread1: <br><input type="number" name="spread1" step="any" required></label><br>
+                            <label>Spread2: <br><input type="number" name="spread2" step="any" required></label><br>
+                            <label>D2: <br><input type="number" name="D2" step="any" required></label><br>
+                            <label>PPE: <br><input type="number" name="PPE" step="any" required></label><br>                                                  
+                            <button id="submitInfo" type="submit">Submit</button>
+                        </form>                        
+                    </div>
+                    
+                    <!-- Lung Cancer Inputs -->
+                    <div id="lungCancerInputs" class="hidden">
+                        <form method="POST" action="{% url 'process_data_lungcancer' %}">
+                            {% csrf_token %}
+                            <label>Sex:</label><br>
+                            <select name="Sex" required>
+                                <option value="">Select</option>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                            </select><br>
+                            <label>Age: <br><input type="number" name="Age" step="any" required></label><br>
+                            <label>Smoking:</label><br>
+                            <select name="Smoking" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Yellow Fingers:</label><br>
+                            <select name="yellow_fingers" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Anxiety:</label><br>
+                            <select name="anxiety" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Peer Pressure:</label><br>
+                            <select name="peer_pressure" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Chronic Disease:</label><br>
+                            <select name="chronic_disease" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Fatigue:</label><br>
+                            <select name="fatigue" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Allergy:</label><br>
+                            <select name="allergy" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Wheezing:</label><br>
+                            <select name="wheezing" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Alcohol Consuming:</label><br>
+                            <select name="alcohol_consuming" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Coughing:</label><br>
+                            <select name="coughing" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Shortness of Breath:</label><br>
+                            <select name="shortness_of_breath" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Swallowing Difficulty:</label><br>
+                            <select name="swallowing_difficulty" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <label>Chest Pain:</label><br>
+                            <select name="chest_pain" required>
+                                <option value="">Select</option>
+                                <option value="2">Yes</option>
+                                <option value="1">No</option>
+                            </select><br>
+                            <button id="submitInfo" type="submit">Submit</button>
+                        </form>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>
